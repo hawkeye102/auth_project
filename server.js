@@ -4,12 +4,16 @@ const passport=require('passport')
 const connectDB=require('./config/db');
 const authRoutes=require('./routes/auth');
 const path=require('path')
+const cors = require('cors');
+
+
 require('dotenv').config();
 
 const app=express();
 connectDB();
 
 // #middleware
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(
@@ -28,7 +32,7 @@ app.use(passport.session())
 app.use(express.static(path.join(__dirname,'public')));
 
 // # passport config
-require('./config/passport')//(passport); this // gives modularity nothing else 
+require('./config/passport')(passport); //this  gives modularity nothing else 
 
 // # route
 app.use('/api/auth',authRoutes);

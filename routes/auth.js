@@ -17,6 +17,8 @@ router.post('/signup', async (req, res) => {
 // Login Route
 router.post('/login', (req, res, next) => {
   passport.authenticate('local', (err, user, info) => {
+    console.log('Request Body:', req.body);
+    console.log('User Found:', user);
     if (err) return next(err);
     if (!user) return res.status(400).json({ error: info.message });
 
@@ -30,6 +32,8 @@ router.post('/login', (req, res, next) => {
 // Logout Route
 router.get('/logout', (req, res) => {
   req.logout((err) => {
+   
+
     if (err) return res.status(500).json({ error: err.message });
     res.json({ message: 'Logged out' });
   });
