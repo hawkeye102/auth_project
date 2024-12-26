@@ -3,6 +3,7 @@ const session =require('express-session');
 const passport=require('passport')
 const connectDB=require('./config/db');
 const authRoutes=require('./routes/auth');
+const path=require('path')
 require('dotenv').config();
 
 const app=express();
@@ -22,6 +23,9 @@ console.log('SESSION_SECRET:', process.env.SESSION_SECRET);// for logging only
 
 app.use(passport.initialize())
 app.use(passport.session())
+
+// # bring static files
+app.use(express.static(path.join(__dirname,'public')));
 
 // # passport config
 require('./config/passport')//(passport); this // gives modularity nothing else 
